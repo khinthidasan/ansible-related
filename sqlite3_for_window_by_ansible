@@ -1,3 +1,8 @@
+#If you are working with window and do not want to install sqlite3 permanently 
+#( in my case, I just want to update some table fields of *.db sqlite file stored in window, do not want to install sqlite3 at the window),
+#I downloaded sqlite3.exe and copy to window to execute my ansible. After that sqlite3 is deleted from window.
+
+
 ---
 - hosts: all
   gather_facts: false
