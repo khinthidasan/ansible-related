@@ -1,0 +1,25 @@
+---
+- hosts: all
+  gather_facts: false
+  vars:
+   sqLite: "sqlite3.exe"
+   dbFile: "myData.db"
+  
+  tasks:
+  - name: Add sqlite3.exe at host (Copy sqlite.exe from ansible to window )
+    win_copy: 
+     src: "/var/lib/awx/projects/testProject/{{sqLite}}"
+     dest: "C:\\Users\\myPC\\{{sqLite}}"
+
+  - name: Update fields
+    win_command: sqlite3.exe  "C:\\Users\\myPC\\{{dbFile}}" "Update tableName set value='myvalue' where key='mykey'" 
+    args: 
+     chdir: "C:\\Users\\myPC\\" 
+    ignore_errors: true     
+
+  - name: Delete sqlite3.exe from host (Delete sqlite.exe at window )
+    win_file:
+     path: "C:\\Users\\myPC\\{{sqLite}}"
+     state: absent
+
+ 
